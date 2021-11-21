@@ -18,11 +18,12 @@ namespace TestProject
 
         [TestMethod]
         public void BubbleSortTest()
-        {
-            var unsortedList = new List<int>() { 3, 9, 7, 28, 8, 17 };
-            var sortedList = new List<int>() { 3, 7, 8, 9, 17, 28 };
+        {            
+            var unsortedList = new List<int> { 3, 9, 7, 28, 8, 17, 39, 13, 88, 123 };
+            var sortedList = new List<int> { 3, 7, 8, 9, 13, 17, 28, 39, 88, 123 };
             SortingAlgorithms.BubbleSort(unsortedList);
             CollectionAssert.AreEqual(sortedList, unsortedList);
+            
         }
 
         [TestMethod]
