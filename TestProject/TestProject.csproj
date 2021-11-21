@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Problems\Problems.csproj" />
+    <ProjectReference Include="..\Selection\Selection.csproj" />
     <ProjectReference Include="..\Sort\Sort.csproj" />
   </ItemGroup>
 

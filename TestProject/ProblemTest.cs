@@ -1,5 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Problems;
+using Selection;
+using System.Collections.Generic;
 
 namespace TestProject
 {
@@ -22,6 +24,26 @@ namespace TestProject
 
             double calculatedMedian = median.GetMedian();
             Assert.AreEqual(3, calculatedMedian);
+        }
+
+        [TestMethod]
+        public void QuickSelectTest()
+        {
+            List<int> unsortedList = new List<int>() { 3, 9, 7, 28, 8, 17 };
+
+            int result = QuickSelect.Find(unsortedList,6);
+
+            Assert.AreEqual(28, result);
+        }
+
+        [TestMethod]
+        public void QuickSelectTestSecondSeven()
+        {
+            List<int> unsortedList = new List<int>() { 3, 9, 7, 28, 8, 17 };
+
+            int result = QuickSelect.Find(unsortedList,2);
+
+            Assert.AreEqual(7, result);
         }
     }
 }
