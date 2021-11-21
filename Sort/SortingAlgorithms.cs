@@ -2,7 +2,7 @@
 {
     public static class SortingAlgorithms
     {
-        public static void InsertionSort(List<int> inputList)
+        public static void InsertionSort(IList<int> inputList)
         {
             for (var i = 1; i < inputList.Count; i++)
             {
@@ -20,18 +20,16 @@
             }
         }
 
-        public static void BubbleSort(List<int> inputList)
+        public static void BubbleSort(IList<int> inputList)
         {
             for (var i = 0; i < inputList.Count; i++)
             {
                 var isSorted = true;
                 for (var j = 0; j < inputList.Count - 1 - i; j++)
                 {
-                    if (inputList[j] > inputList[j + 1])
-                    {
-                        Swap(inputList, j, j + 1);
-                        isSorted = false;
-                    }
+                    if (inputList[j] <= inputList[j + 1]) continue;
+                    Swap(inputList, j, j + 1);
+                    isSorted = false;
                 }
                 if (isSorted)
                 {
@@ -40,14 +38,14 @@
             }
         }
 
-        public static void QuickSort(List<int> inputList)
+        public static void QuickSort(IList<int> inputList)
         {
             var pivotIndex = inputList.Count - 1;
             const int startIndex = 0;
             Partition(inputList, startIndex, pivotIndex);
         }
 
-        private static void Partition(List<int> inputList, int startIndex, int pivotIndex)
+        private static void Partition(IList<int> inputList, int startIndex, int pivotIndex)
         {
             while (true)
             {
