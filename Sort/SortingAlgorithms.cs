@@ -4,9 +4,9 @@
     {
         public static void InsertionSort(List<int> inputList)
         {
-            for (int i = 1; i < inputList.Count; i++)
+            for (var i = 1; i < inputList.Count; i++)
             {
-                for (int j = i - 1; j >= 0; j--)
+                for (var j = i - 1; j >= 0; j--)
                 {
                     if (inputList[j + 1] < inputList[j])
                     {
@@ -22,11 +22,10 @@
 
         public static void BubbleSort(List<int> inputList)
         {
-            bool isSorted;
-            for (int i = 0; i < inputList.Count; i++)
+            for (var i = 0; i < inputList.Count; i++)
             {
-                isSorted = true;
-                for (int j = 0; j < inputList.Count - 1 - i; j++)
+                var isSorted = true;
+                for (var j = 0; j < inputList.Count - 1 - i; j++)
                 {
                     if (inputList[j] > inputList[j + 1])
                     {
@@ -43,36 +42,36 @@
 
         public static void QuickSort(List<int> inputList)
         {
-            int pivotIndex = inputList.Count - 1;
-            int startIndex = 0;
+            var pivotIndex = inputList.Count - 1;
+            const int startIndex = 0;
             Partition(inputList, startIndex, pivotIndex);
         }
 
         private static void Partition(List<int> inputList, int startIndex, int pivotIndex)
         {
-            int endIndex = pivotIndex - 1;
-            if (startIndex >= endIndex) return;
-
-            int smallerIndex = startIndex;
-
-            for (int i = startIndex; i <= endIndex; i++)
+            while (true)
             {
-                if (inputList[pivotIndex] > inputList[i])
+                var endIndex = pivotIndex - 1;
+                if (startIndex >= endIndex) return;
+
+                var smallerIndex = startIndex;
+
+                for (var i = startIndex; i <= endIndex; i++)
                 {
+                    if (inputList[pivotIndex] <= inputList[i]) continue;
                     Swap(inputList, smallerIndex, i);
                     smallerIndex++;
                 }
+
+                Swap(inputList, smallerIndex, pivotIndex);
+                Partition(inputList, 0, smallerIndex - 1); //left
+                startIndex = smallerIndex + 1;
             }
-            Swap(inputList, smallerIndex, pivotIndex);
-            Partition(inputList, 0, smallerIndex - 1);//left
-            Partition(inputList, smallerIndex + 1, pivotIndex);//right
         }
 
-        private static void Swap(List<int> inputList, int indexOne, int indexTwo)
+        private static void Swap(IList<int> inputList, int indexOne, int indexTwo)
         {
-            int temp = inputList[indexOne];
-            inputList[indexOne] = inputList[indexTwo];
-            inputList[indexTwo] = temp;
+            (inputList[indexOne], inputList[indexTwo]) = (inputList[indexTwo], inputList[indexOne]);
         }
     }
 }

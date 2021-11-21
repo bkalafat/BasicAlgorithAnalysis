@@ -4,8 +4,8 @@ namespace Problems
 {
     public class Median
     {
-        private Heap _lowers;
-        private Heap _highers;
+        private readonly Heap _lowers;
+        private readonly Heap _highers;
 
         public Median()
         {
@@ -15,7 +15,7 @@ namespace Problems
 
         public void AddNumber(int number)
         {
-            Heap smallerSizeHeap = GetSmallerSizeHeap(number);
+            var smallerSizeHeap = GetSmallerSizeHeap();
             smallerSizeHeap.AddNumber(number);
             BalanceHeaps();
         }
@@ -24,20 +24,19 @@ namespace Problems
         {
             while (_lowers.Arr.Count > _highers.Arr.Count + 1 || _lowers.Peek() > _highers.Peek())
             {
-                int lowersMax = _lowers.Poll();
+                var lowersMax = _lowers.Poll();
                 _highers.AddNumber(lowersMax);
             }
             while (_lowers.Arr.Count < _highers.Arr.Count - 1)
             {
-                int highersMin = _highers.Poll();
+                var highersMin = _highers.Poll();
                 _lowers.AddNumber(highersMin);
             }
         }
 
-        private Heap GetSmallerSizeHeap(int number)
+        private Heap GetSmallerSizeHeap()
         {
-            if (_lowers.Arr.Count > _highers.Arr.Count) return _highers;
-            return _lowers;
+            return _lowers.Arr.Count > _highers.Arr.Count ? _highers : _lowers;
         }
 
         public double GetMedian()
@@ -46,14 +45,13 @@ namespace Problems
             {
                 return _lowers.Poll();
             }
-            else if (_lowers.Arr.Count < _highers.Arr.Count)
+
+            if (_lowers.Arr.Count < _highers.Arr.Count)
             {
                 return _highers.Poll();
             }
-            else
-            {
-                return (_highers.Poll() + _lowers.Poll()) / 2.0;
-            }
+
+            return (_highers.Poll() + _lowers.Poll()) / 2.0;
 
         }
     }
