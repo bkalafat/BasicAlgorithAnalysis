@@ -1,41 +1,43 @@
-﻿namespace Selection
+﻿namespace Selection;
+
+public static class QuickSelect
 {
-    public static class QuickSelect
+    public static int Find(List<int> inputList, int kthElement)
     {
-        public static int Find(List<int> inputList, int kthElement)
-        {
-            int pivotIndex = inputList.Count - 1;
-            int startIndex = 0;
-            return Partition(inputList, startIndex, pivotIndex, kthElement - 1);
-        }
+        var pivotIndex = inputList.Count - 1;
+        const int startIndex = 0;
+        return Partition(inputList, startIndex, pivotIndex, kthElement - 1);
+    }
 
-        private static int Partition(List<int> inputList, int startIndex, int pivotIndex, int searchIndex)
+    private static int Partition(IList<int> inputList, int startIndex, int pivotIndex, int searchIndex)
+    {
+        while (true)
         {
-            int endIndex = pivotIndex - 1;
-            int smallerIndex = startIndex;
+            var endIndex = pivotIndex - 1;
+            var smallerIndex = startIndex;
 
-            for (int i = startIndex; i <= endIndex; i++)
+            for (var i = startIndex; i <= endIndex; i++)
             {
-                if (inputList[pivotIndex] > inputList[i])
-                {
-                    Swap(inputList, smallerIndex, i);
-                    smallerIndex++;
-                }
+                if (inputList[pivotIndex] <= inputList[i]) continue;
+                Swap(inputList, smallerIndex, i);
+                smallerIndex++;
             }
-            Swap(inputList, smallerIndex, pivotIndex);
-            if (searchIndex == smallerIndex)
-                return inputList[smallerIndex];
-            if (searchIndex < smallerIndex)
-                return Partition(inputList, 0, smallerIndex - 1, searchIndex);//left
-            else
-                return Partition(inputList, smallerIndex + 1, pivotIndex, searchIndex);//right
-        }
 
-        private static void Swap(List<int> inputList, int indexOne, int indexTwo)
-        {
-            int temp = inputList[indexOne];
-            inputList[indexOne] = inputList[indexTwo];
-            inputList[indexTwo] = temp;
+            Swap(inputList, smallerIndex, pivotIndex);
+            if (searchIndex == smallerIndex) return inputList[smallerIndex];
+            if (searchIndex < smallerIndex)
+            {
+                startIndex = 0;
+                pivotIndex = smallerIndex - 1;
+                continue;
+            }
+
+            startIndex = smallerIndex + 1;
         }
+    }
+
+    private static void Swap(IList<int> inputList, int indexOne, int indexTwo)
+    {
+        (inputList[indexOne], inputList[indexTwo]) = (inputList[indexTwo], inputList[indexOne]);
     }
 }
